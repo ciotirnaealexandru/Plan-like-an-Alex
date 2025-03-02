@@ -1,0 +1,27 @@
+.custom-small-text-size {
+  font-size: min(20px, 4vw);
+  margin-left: min(20px, 3vw);
+}
+
+.custom-big-text-size {
+  font-size: min(32px, 7vw);
+  margin-left: min(20px, 3vw);
+}
+
+.custom-small-icon-size {
+  width: min(24px, 8vw);
+  height: min(24px, 8vw);
+}
+
+.custom-big-icon-size {
+  width: min(38px, 10vw);
+  height: min(38px, 10vw);
+}
+
+.custom-small-container-padding {
+  padding: min(20px, 4vw);
+}
+
+.custom-big-container-padding {
+  padding: min(35px, 7vw);
+}
