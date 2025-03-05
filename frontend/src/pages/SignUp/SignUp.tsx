@@ -160,7 +160,7 @@ const SignUp = () => {
             )}
           </div>
           <input
-            type="tel"
+            type="text"
             id="phone"
             value={formData.phone}
             onChange={handleInputChange}
