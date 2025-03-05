@@ -14,7 +14,7 @@ const Navbar = ({ page }: { page: string }) => {
       />
       <FaCalendarCheck
         className={`w-7 h-7 ${
-          page === "planner" ? "text-[#cf0f1f]" : "text-gray-300"
+          page === "planner" ? "text-[#e21123]" : "text-gray-300"
         } transition-colors duration-300`}
       />
       <FaDumbbell

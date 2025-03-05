@@ -13,7 +13,7 @@ const RemindersComponent = () => {
         <div className="text-[#745FFF] text-xl">8 reminders pending</div>
       </div>
 
-      <div className="mt-4 w-full h-50 border-2 pl-4 pr-2 py-3 border-[#745FFF] rounded-xl">
+      <div className="mt-4 w-full h-50 border-2 pl-4 pr-2 py-1 border-[#745FFF] rounded-xl">
         <div className="w-full h-full overflow-y-auto add-custom-scrollbar pr-5">
           <Reminder text="Fa task-ul ala scurt" />
           <Reminder text="Ok deci asta e un task cam lung, gen f lung, atat de lung gen asa lung cat gen gen gen gen sa se vada gen cat de lung e textul, gen" />

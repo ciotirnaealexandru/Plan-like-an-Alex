@@ -10,7 +10,7 @@ import ProfilePicture from "../../images/profile_picture.jpeg";
 
 const Home = () => {
   return (
-    <div className="font-[Inter] w-screen h-screen flex flex-col px-6 pt-5 bg-gradient-to-t from-[#745fff] to-white to-15%">
+    <div className="font-[Inter] w-screen h-screen flex flex-col px-6 pt-4 bg-gradient-to-t from-[#745fff] to-white to-15%">
       <div className="flex justify-between items-center">
         <div className="flex flex-col">
           <div className="text-gray-300 text-xl">Monday</div>
@@ -33,7 +33,7 @@ const Home = () => {
       </div>
 
       <div className="w-full flex flex-col mt-4">
-        <div className="flex items-center w-full custom-big-container-padding rounded-2xl bg-gradient-to-br from-[#cf0f1f] to-[#e1b3c6]">
+        <div className="flex items-center w-full custom-big-container-padding rounded-2xl bg-gradient-to-br from-[#e21123] to-[#f6b7d1]">
           <FaCalendarCheck className="custom-big-icon-size text-white" />
           <div className="text-white ml-8 custom-big-text-size font-semibold">
             PLANNER
