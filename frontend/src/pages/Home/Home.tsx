@@ -10,7 +10,7 @@ import ProfilePicture from "../../images/profile_picture.jpeg";
 
 const Home = () => {
   return (
-    <div className="font-[Inter] w-screen h-screen flex flex-col px-6 pt-13 bg-gradient-to-t from-[#745fff] to-white to-15%">
+    <div className="font-[Inter] w-screen h-screen flex flex-col px-6 pt-5 bg-gradient-to-t from-[#745fff] to-white to-15%">
       <div className="flex justify-between items-center">
         <div className="flex flex-col">
           <div className="text-gray-300 text-xl">Monday</div>

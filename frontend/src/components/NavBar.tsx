@@ -6,7 +6,7 @@ import { RiSettings3Fill } from "react-icons/ri";
 
 const Navbar = ({ page }: { page: string }) => {
   return (
-    <div className="fixed bottom-5 w-[calc(100%-48px)] px-6 h-16 bg-white rounded-2xl flex items-center justify-between">
+    <div className="fixed bottom-10 w-[calc(100%-48px)] px-6 h-16 bg-white rounded-2xl flex items-center justify-between">
       <GoHomeFill
         className={`w-8 h-8 ${
           page === "home" ? "text-[#745fff]" : "text-gray-300"
