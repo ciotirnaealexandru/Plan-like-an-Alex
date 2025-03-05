@@ -2,7 +2,7 @@ import "./RemindersComponent.scss";
 
 const RemindersComponent = () => {
   return (
-    <div className="mt-12 flex flex-col">
+    <div className="mt-8 flex flex-col">
       <div className="flex flex-col">
         <div className="flex items-center gap-4">
           <div className="text-3xl font-bold">Reminders</div>

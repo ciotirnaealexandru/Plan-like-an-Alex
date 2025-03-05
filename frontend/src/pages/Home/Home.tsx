@@ -32,7 +32,7 @@ const Home = () => {
         <div className="text-gray-300 text-xl">let's keep you on track</div>
       </div>
 
-      <div className="w-full flex flex-col mt-8">
+      <div className="w-full flex flex-col mt-4">
         <div className="flex items-center w-full custom-big-container-padding rounded-2xl bg-gradient-to-br from-[#cf0f1f] to-[#e1b3c6]">
           <FaCalendarCheck className="custom-big-icon-size text-white" />
           <div className="text-white ml-8 custom-big-text-size font-semibold">
