@@ -5,10 +5,9 @@ The ULTIMATE planner app. A task calendar, timetables, reminders, fitness tracki
 ## Frontend:
 
 React with TypeScript (for building the UI)
-SCSS (for styling)
+Tailwind and SCSS (for styling)
 React Router (for navigation)
 React Calendar (for displaying and interacting with a calendar)
-React Hook Form (for handling form validations)
 
 ## Backend:
 
