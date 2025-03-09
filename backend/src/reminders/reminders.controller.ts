@@ -7,12 +7,14 @@ import {
   Param,
   Delete,
   ParseIntPipe,
+  NotFoundException,
 } from '@nestjs/common';
 import { RemindersService } from './reminders.service';
 import { CreateReminderDto } from './dto/create-reminder.dto';
 import { UpdateReminderDto } from './dto/update-reminder.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ReminderEntity } from './entities/reminder.entity';
+import { NotFoundError } from 'rxjs';
 
 @Controller('reminders')
 @ApiTags('Reminders')
@@ -33,8 +35,12 @@ export class RemindersController {
 
   @Get(':id')
   @ApiCreatedResponse({ type: ReminderEntity })
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.remindersService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const article = await this.remindersService.findOne(+id);
+    if (!article) {
+      throw new NotFoundException(`Reminder with ${id} does not exist.`);
+    }
+    return article;
   }
 
   @Patch(':id')
