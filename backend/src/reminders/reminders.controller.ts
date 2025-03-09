@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { RemindersService } from './reminders.service';
 import { CreateReminderDto } from './dto/create-reminder.dto';
@@ -32,14 +33,14 @@ export class RemindersController {
 
   @Get(':id')
   @ApiCreatedResponse({ type: ReminderEntity })
-  findOne(@Param('id') id: string) {
-    return this.remindersService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.remindersService.findOne(id);
   }
 
   @Patch(':id')
   @ApiCreatedResponse({ type: ReminderEntity })
   update(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateReminderDto: UpdateReminderDto,
   ) {
     return this.remindersService.update(+id, updateReminderDto);
@@ -47,7 +48,7 @@ export class RemindersController {
 
   @Delete(':id')
   @ApiCreatedResponse({ type: ReminderEntity })
-  remove(@Param('id') id: string) {
+  remove(@Param('id', ParseIntPipe) id: number) {
     return this.remindersService.remove(+id);
   }
 }

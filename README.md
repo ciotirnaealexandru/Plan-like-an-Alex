@@ -7,11 +7,12 @@ The ULTIMATE planner app. A task calendar, timetables, reminders, fitness tracki
 React with TypeScript (for building the UI)
 Tailwind and SCSS (for styling)
 React Router (for navigation)
-React Calendar (for displaying and interacting with a calendar)
+--(not yet) React Calendar (for displaying and interacting with a calendar)
 
 ## Backend:
 
-NestJS (for handling server-side logic, routing, and API endpoints)
-Prisma (for database management and queries)
-MySQL (relational database for storing and managing the data)
-JWT Authentication (for secure user authentication)
+NestJS with Typescript as the backend framework
+Prisma as the Object-Relational Mapper (ORM)
+PostgreSQL as the database
+Swagger as the API documentation tool
+--(not yet) JWT Authentication (for secure user authentication)
