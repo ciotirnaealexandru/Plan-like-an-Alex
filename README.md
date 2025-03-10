@@ -15,4 +15,4 @@ NestJS with Typescript as the backend framework
 Prisma as the Object-Relational Mapper (ORM)
 PostgreSQL as the database
 Swagger as the API documentation tool
---(not yet) JWT Authentication (for secure user authentication)
+JWT Authentication using the Passport library (and hashing with bcrypt)

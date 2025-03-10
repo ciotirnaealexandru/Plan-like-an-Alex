@@ -14,6 +14,7 @@ async function bootstrap() {
     .setTitle('Plan like an Alex')
     .setDescription('The Plan like an Alex API description')
     .setVersion('0.1')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
