@@ -8,25 +8,43 @@ export class RemindersService {
   constructor(private prisma: PrismaService) {}
 
   create(createReminderDto: CreateReminderDto) {
-    return this.prisma.reminder.create({ data: createReminderDto });
+    return this.prisma.reminder.create({ data: { ...createReminderDto } });
   }
 
   findAll() {
-    return this.prisma.reminder.findMany({ where: { published: true } });
+    return this.prisma.reminder.findMany({
+      where: { published: true },
+      include: {
+        author: true,
+      },
+    });
   }
 
   findOne(id: number) {
-    return this.prisma.reminder.findUnique({ where: { id } });
+    return this.prisma.reminder.findUnique({
+      where: { id },
+      include: {
+        author: true,
+      },
+    });
   }
 
   update(id: number, updateReminderDto: UpdateReminderDto) {
     return this.prisma.reminder.update({
       where: { id },
       data: updateReminderDto,
+      include: {
+        author: true,
+      },
     });
   }
 
   remove(id: number) {
-    return this.prisma.reminder.delete({ where: { id } });
+    return this.prisma.reminder.delete({
+      where: { id },
+      include: {
+        author: true,
+      },
+    });
   }
 }

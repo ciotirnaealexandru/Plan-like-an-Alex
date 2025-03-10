@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsNotEmpty,
   IsString,
+  IsInt,
   MaxLength,
   IsBoolean,
   IsOptional,
@@ -23,4 +24,8 @@ export class CreateReminderDto {
   @IsOptional()
   @ApiProperty({ required: false, default: false })
   done?: boolean = false;
+
+  @ApiProperty()
+  @IsInt()
+  authorId: number;
 }

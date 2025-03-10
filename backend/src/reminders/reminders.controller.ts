@@ -14,7 +14,6 @@ import { CreateReminderDto } from './dto/create-reminder.dto';
 import { UpdateReminderDto } from './dto/update-reminder.dto';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { ReminderEntity } from './entities/reminder.entity';
-import { NotFoundError } from 'rxjs';
 
 @Controller('reminders')
 @ApiTags('Reminders')
@@ -23,38 +22,43 @@ export class RemindersController {
 
   @Post()
   @ApiCreatedResponse({ type: ReminderEntity })
-  create(@Body() createReminderDto: CreateReminderDto) {
-    return this.remindersService.create(createReminderDto);
+  async create(@Body() createReminderDto: CreateReminderDto) {
+    return new ReminderEntity(
+      await this.remindersService.create(createReminderDto),
+    );
   }
 
   @Get()
-  @ApiCreatedResponse({ type: ReminderEntity, isArray: true })
-  findAll() {
-    return this.remindersService.findAll();
+  @ApiOkResponse({ type: ReminderEntity, isArray: true })
+  async findAll() {
+    const reminders = await this.remindersService.findAll();
+    return reminders.map((reminder) => new ReminderEntity(reminder));
   }
 
   @Get(':id')
-  @ApiCreatedResponse({ type: ReminderEntity })
-  async findOne(@Param('id') id: string) {
-    const article = await this.remindersService.findOne(+id);
+  @ApiOkResponse({ type: ReminderEntity })
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    const article = await this.remindersService.findOne(id);
     if (!article) {
-      throw new NotFoundException(`Reminder with ${id} does not exist.`);
+      throw new NotFoundException(`Reminder with id ${id} does not exist.`);
     }
-    return article;
+    return new ReminderEntity(await article);
   }
 
   @Patch(':id')
-  @ApiCreatedResponse({ type: ReminderEntity })
-  update(
+  @ApiOkResponse({ type: ReminderEntity })
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateReminderDto: UpdateReminderDto,
   ) {
-    return this.remindersService.update(+id, updateReminderDto);
+    return new ReminderEntity(
+      await this.remindersService.update(id, updateReminderDto),
+    );
   }
 
   @Delete(':id')
-  @ApiCreatedResponse({ type: ReminderEntity })
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.remindersService.remove(+id);
+  @ApiOkResponse({ type: ReminderEntity })
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return new ReminderEntity(await this.remindersService.remove(id));
   }
 }
