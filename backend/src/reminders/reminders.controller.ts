@@ -8,12 +8,19 @@ import {
   Delete,
   ParseIntPipe,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { RemindersService } from './reminders.service';
 import { CreateReminderDto } from './dto/create-reminder.dto';
 import { UpdateReminderDto } from './dto/update-reminder.dto';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ReminderEntity } from './entities/reminder.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('reminders')
 @ApiTags('Reminders')
@@ -21,6 +28,8 @@ export class RemindersController {
   constructor(private readonly remindersService: RemindersService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ type: ReminderEntity })
   async create(@Body() createReminderDto: CreateReminderDto) {
     return new ReminderEntity(
@@ -29,6 +38,8 @@ export class RemindersController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: ReminderEntity, isArray: true })
   async findAll() {
     const reminders = await this.remindersService.findAll();
@@ -36,6 +47,8 @@ export class RemindersController {
   }
 
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: ReminderEntity })
   async findOne(@Param('id', ParseIntPipe) id: number) {
     const article = await this.remindersService.findOne(id);
@@ -46,6 +59,8 @@ export class RemindersController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: ReminderEntity })
   async update(
     @Param('id', ParseIntPipe) id: number,
@@ -57,6 +72,8 @@ export class RemindersController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: ReminderEntity })
   async remove(@Param('id', ParseIntPipe) id: number) {
     return new ReminderEntity(await this.remindersService.remove(id));

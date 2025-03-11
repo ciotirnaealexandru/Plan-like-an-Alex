@@ -9,9 +9,27 @@ const prisma = new PrismaClient();
 const roundsOfHashing = 10;
 
 async function main() {
+  // create admin
+  const adminpassword = await bcrypt.hash('password', roundsOfHashing);
+
+  const admin = await prisma.user.upsert({
+    where: { email: 'admin@gmail.com' },
+    update: {
+      password: adminpassword,
+    },
+    create: {
+      email: 'admin@gmail.com',
+      phone: '0000 000 000',
+      firstName: 'adminfirst',
+      lastName: 'adminlast',
+      password: adminpassword,
+      role: 'ADMIN',
+    },
+  });
+
   // create two dummy users
-  const password1 = await bcrypt.hash('password1', roundsOfHashing);
-  const password2 = await bcrypt.hash('password2', roundsOfHashing);
+  const password1 = await bcrypt.hash('password', roundsOfHashing);
+  const password2 = await bcrypt.hash('password', roundsOfHashing);
 
   const user1 = await prisma.user.upsert({
     where: { email: 'user1@gmail.com' },
@@ -24,6 +42,7 @@ async function main() {
       firstName: 'first1',
       lastName: 'last1',
       password: password1,
+      role: 'USER',
     },
   });
 
@@ -38,6 +57,7 @@ async function main() {
       firstName: 'first2',
       lastName: 'last2',
       password: password2,
+      role: 'USER',
     },
   });
 
@@ -81,7 +101,7 @@ async function main() {
     },
   });
 
-  console.log({ user1, user2, reminder1, reminder2, reminder3 });
+  console.log({ admin, user1, user2, reminder1, reminder2, reminder3 });
 }
 
 // execute the main function
