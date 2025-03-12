@@ -1,4 +1,5 @@
 import "./RemindersComponent.scss";
+import { FaPlus } from "react-icons/fa";
 
 const RemindersComponent = () => {
   return (
@@ -7,7 +8,7 @@ const RemindersComponent = () => {
         <div className="flex items-center gap-4">
           <div className="text-3xl font-bold">Reminders</div>
           <div className="bg-[#745FFF] flex justify-center items-center h-6 w-6 rounded-xl">
-            <div className="text-white text-2xl font-bold p-0">+</div>
+            <FaPlus className="text-white" />
           </div>
         </div>
         <div className="text-[#745FFF] text-xl">8 reminders pending</div>
