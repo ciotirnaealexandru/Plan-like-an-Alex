@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import { useState } from "react";
 import { FaLessThan } from "react-icons/fa";
 import { FaLongArrowAltRight } from "react-icons/fa";
@@ -21,6 +23,24 @@ interface FormErrors {
   password: string;
   confirmPassword: string;
 }
+
+const GoToLogin = () => {
+  const navigate = useNavigate();
+
+  const handleRedirect = () => {
+    navigate("/login");
+  };
+
+  return (
+    <button
+      type="button"
+      onClick={handleRedirect}
+      className="self-end flex items-center text-white mt-12">
+      <div className="text-lg font-bold">Already have an account?</div>
+      <FaLongArrowAltRight className="ml-4 text-2xl" />
+    </button>
+  );
+};
 
 const SignUp = () => {
   const [formData, setFormData] = useState<FormData>({
@@ -204,10 +224,7 @@ const SignUp = () => {
           />
         </div>
 
-        <div className="self-end flex items-center text-white mt-12">
-          <div className="text-lg font-bold">Already have an account?</div>
-          <FaLongArrowAltRight className="ml-4 text-2xl" />
-        </div>
+        <GoToLogin />
 
         <button
           type="submit"
