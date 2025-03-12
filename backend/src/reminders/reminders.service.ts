@@ -7,44 +7,45 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class RemindersService {
   constructor(private prisma: PrismaService) {}
 
-  create(createReminderDto: CreateReminderDto) {
-    return this.prisma.reminder.create({ data: { ...createReminderDto } });
+  create(createReminderDto: CreateReminderDto, userId: number) {
+    return this.prisma.reminder.create({
+      data: { ...createReminderDto, authorId: userId },
+    });
   }
 
-  findAll() {
+  findAll(user) {
+    const isAdmin = user.role === 'ADMIN';
+
     return this.prisma.reminder.findMany({
-      where: { published: true },
-      include: {
-        author: true,
-      },
+      where: isAdmin ? {} : { authorId: user.id },
+      include: isAdmin ? { author: true } : undefined,
     });
   }
 
-  findOne(id: number) {
+  findOne(id: number, user) {
+    const isAdmin = user.role === 'ADMIN';
+
     return this.prisma.reminder.findUnique({
-      where: { id },
-      include: {
-        author: true,
-      },
+      where: { id, ...(isAdmin ? {} : { authorId: user.id }) },
+      include: isAdmin ? { author: true } : undefined,
     });
   }
 
-  update(id: number, updateReminderDto: UpdateReminderDto) {
+  update(id: number, updateReminderDto: UpdateReminderDto, user) {
+    const isAdmin = user.role === 'ADMIN';
+
     return this.prisma.reminder.update({
-      where: { id },
+      where: { id, ...(isAdmin ? {} : { authorId: user.id }) },
       data: updateReminderDto,
-      include: {
-        author: true,
-      },
+      include: isAdmin ? { author: true } : undefined,
     });
   }
 
-  remove(id: number) {
+  remove(id: number, user) {
+    const isAdmin = user.role === 'ADMIN';
+
     return this.prisma.reminder.delete({
-      where: { id },
-      include: {
-        author: true,
-      },
+      where: { id, ...(isAdmin ? {} : { authorId: user.id }) },
     });
   }
 }
