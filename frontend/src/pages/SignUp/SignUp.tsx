@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios";
 import { useState } from "react";
 import { FaLessThan } from "react-icons/fa";
 import { FaLongArrowAltRight } from "react-icons/fa";
@@ -43,6 +43,9 @@ const GoToLogin = () => {
 };
 
 const SignUp = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -92,18 +95,46 @@ const SignUp = () => {
     else if (formData.password !== formData.confirmPassword)
       newErrors.password = "Passwords don't match.";
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    const hasErrors = Object.values(newErrors).some((error) => error !== "");
+    return !hasErrors;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    if (validate()) {
-      console.log("Form submitted:", formData);
-      // Here, you can handle actual form submission, like sending data to a server.
-    } else {
+    if (!validate()) {
+      setIsSubmitting(false);
+      return;
+    }
+
+    console.log("am aj aici");
+
+    try {
+      const response = await axios.post(`${API_URL}/users`, {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+      });
+
+      console.log("Signup successful:", response.data);
+
+      // Redirect to login after successful signup
+      navigate("/login");
+    } catch (error: any) {
+      console.error(
+        "Signup error:",
+        error.response?.data?.message || error.message
+      );
+
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email:
+          error.response?.data?.message || "Signup failed. Please try again.",
+      }));
+    } finally {
       setIsSubmitting(false);
     }
   };

@@ -33,8 +33,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get('me')
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(Role.USER)
+  @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity })
   async getMe(@Req() req: any) {

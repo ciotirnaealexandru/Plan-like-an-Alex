@@ -15,7 +15,7 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
         // Unique constraint violation
         response.status(HttpStatus.CONFLICT).json({
           statusCode: HttpStatus.CONFLICT,
-          message: 'Duplicate entry: A record with this value already exists.',
+          message: 'This email is already in use.',
         });
         break;
       }

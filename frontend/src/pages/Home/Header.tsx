@@ -1,7 +1,11 @@
 import ProfilePicture from "../../images/profile_picture.jpeg";
 import "./Header.scss";
 
-const Header = () => {
+interface HeaderProps {
+  user: { firstName: string; lastName: string } | null;
+}
+
+const Header = ({ user }: HeaderProps) => {
   const days = [
     "Sunday",
     "Monday",
@@ -51,7 +55,7 @@ const Header = () => {
       </div>
 
       <div className="mt-8">
-        <div className="font-bold text-3xl">Hi Alex.</div>
+        <div className="font-bold text-3xl">Hi {user?.firstName}.</div>
         <div className="text-gray-300 text-xl">let's keep you on track</div>
       </div>
     </>
