@@ -35,7 +35,7 @@ export class RemindersController {
   @ApiCreatedResponse({ type: ReminderEntity })
   async create(@Body() createReminderDto: CreateReminderDto, @Req() req) {
     return new ReminderEntity(
-      await this.remindersService.create(createReminderDto, req.user.id),
+      await this.remindersService.create(createReminderDto, req.user.userId),
     );
   }
 

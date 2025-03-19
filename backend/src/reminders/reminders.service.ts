@@ -17,7 +17,7 @@ export class RemindersService {
     const isAdmin = user.role === 'ADMIN';
 
     return this.prisma.reminder.findMany({
-      where: isAdmin ? {} : { authorId: user.id },
+      where: isAdmin ? {} : { authorId: user.userId },
       include: isAdmin ? { author: true } : undefined,
     });
   }
@@ -26,7 +26,7 @@ export class RemindersService {
     const isAdmin = user.role === 'ADMIN';
 
     return this.prisma.reminder.findUnique({
-      where: { id, ...(isAdmin ? {} : { authorId: user.id }) },
+      where: { id, ...(isAdmin ? {} : { authorId: user.userId }) },
       include: isAdmin ? { author: true } : undefined,
     });
   }
@@ -35,7 +35,7 @@ export class RemindersService {
     const isAdmin = user.role === 'ADMIN';
 
     return this.prisma.reminder.update({
-      where: { id, ...(isAdmin ? {} : { authorId: user.id }) },
+      where: { id, ...(isAdmin ? {} : { authorId: user.userId }) },
       data: updateReminderDto,
       include: isAdmin ? { author: true } : undefined,
     });
@@ -45,7 +45,7 @@ export class RemindersService {
     const isAdmin = user.role === 'ADMIN';
 
     return this.prisma.reminder.delete({
-      where: { id, ...(isAdmin ? {} : { authorId: user.id }) },
+      where: { id, ...(isAdmin ? {} : { authorId: user.userId }) },
     });
   }
 }

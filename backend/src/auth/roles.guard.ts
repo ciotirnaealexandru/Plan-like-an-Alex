@@ -1,4 +1,3 @@
-// src/auth/roles.guard.ts
 import {
   Injectable,
   CanActivate,
@@ -7,31 +6,36 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { ROLES_KEY } from './roles.decorator';
 import { Role } from 'prisma/prisma-client';
 
 @Injectable()
-export class RolesGuard extends JwtAuthGuard implements CanActivate {
-  constructor(private reflector: Reflector) {
-    super();
-  }
+export class RolesGuard implements CanActivate {
+  constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
-    const roles = this.reflector.get<Role[]>('roles', context.getHandler());
-    if (!roles) {
-      return true; // If no roles are specified, allow access
-    }
-
+    const roles = this.reflector.get<Role[]>(ROLES_KEY, context.getHandler());
     const request = context.switchToHttp().getRequest();
     const user = request.user;
 
-    if (!user) {
-      throw new ForbiddenException('Access denied');
+    if (!roles) {
+      return true; // Allow access if no roles are specified
     }
 
-    const hasRole = roles.some((role) => user.role?.includes(role));
+    if (!user) {
+      throw new ForbiddenException('Access denied: No user found');
+    }
+
+    if (!user.role) {
+      throw new ForbiddenException('Access denied: No role assigned');
+    }
+
+    // Directly compare the role from the user with the roles array
+    const hasRole = roles.some((role) => role === user.role);
+
     if (!hasRole) {
       throw new ForbiddenException(
-        'You do not have permission to access this resource',
+        `You do not have permission to access this resource (User role: ${user.role})`,
       );
     }
 

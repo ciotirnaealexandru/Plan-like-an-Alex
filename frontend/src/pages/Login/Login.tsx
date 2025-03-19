@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
@@ -35,6 +36,9 @@ const GoToSignUp = () => {
 };
 
 const Login = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
@@ -64,16 +68,26 @@ const Login = () => {
     if (!formData.password) newErrors.password = "Password is required.";
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    return !newErrors.email && !newErrors.password;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     if (validate()) {
-      console.log("Form submitted:", formData);
-      // Here, you can handle actual form submission, like sending data to a server.
+      try {
+        const response = await axios.post(`${API_URL}/auth/login`, formData, {
+          headers: { "Content-Type": "application/json" },
+        });
+        const { accessToken } = response.data;
+        localStorage.setItem("token", accessToken);
+        navigate("/home");
+      } catch (error) {
+        setErrors({ email: "", password: "Invalid credentials" });
+      } finally {
+        setIsSubmitting(false);
+      }
     } else {
       setIsSubmitting(false);
     }

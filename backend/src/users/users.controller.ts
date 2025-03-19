@@ -9,6 +9,8 @@ import {
   ParseIntPipe,
   NotFoundException,
   UseGuards,
+  Req,
+  BadRequestException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -29,6 +31,24 @@ import { Role } from 'prisma/prisma-client';
 @ApiTags('Users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Get('me')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.USER)
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: UserEntity })
+  async getMe(@Req() req: any) {
+    if (!req.user || !req.user.userId) {
+      throw new BadRequestException('Invalid token: userId is missing');
+    }
+
+    const user = await this.usersService.findOne(req.user.userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return new UserEntity(user);
+  }
 
   @Post()
   @ApiCreatedResponse({ type: UserEntity })
