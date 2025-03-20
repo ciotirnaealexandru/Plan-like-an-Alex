@@ -36,7 +36,7 @@ const GoToSignUp = () => {
 };
 
 const Login = () => {
-  const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = import.meta.env.VITE_API_URL.replace(/\/$/, "");
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<FormData>({

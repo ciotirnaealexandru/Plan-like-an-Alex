@@ -12,7 +12,7 @@ interface User {
 }
 
 const Home = () => {
-  const API_URL = import.meta.env.VITE_API_URL;
+  const API_URL = import.meta.env.VITE_API_URL.replace(/\/$/, "");
 
   const [user, setUser] = useState<User | null>(null);
 
