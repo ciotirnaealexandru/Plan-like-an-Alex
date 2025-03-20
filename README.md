@@ -16,3 +16,7 @@ Prisma as the Object-Relational Mapper (ORM)
 PostgreSQL as the database
 Swagger as the API documentation tool
 JWT Authentication using the Passport library (and hashing with bcrypt)
+
+## Deployment:
+
+Render

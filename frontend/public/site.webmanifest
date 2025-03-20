@@ -1,3 +1,16 @@
 {
-    "display": "standalone"
+  "name": "Plan like an Alex",
+  "short_name": "Plan like an Alex",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/app_icon.png",
+      "sizes": "1000x1000",
+      "type": "image/png"
+    }
+  ]
 }
