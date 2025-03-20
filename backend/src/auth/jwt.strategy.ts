@@ -6,6 +6,8 @@ import { UsersService } from 'src/users/users.service';
 import { UnauthorizedException } from '@nestjs/common';
 import { ExtractJwt } from 'passport-jwt';
 
+export const jwtSecret = process.env.JWT_SECRET;
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
@@ -14,7 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: 'zjP9h6ZI5LoSKCRj',
+      secretOrKey: String(jwtSecret),
     });
   }
 
