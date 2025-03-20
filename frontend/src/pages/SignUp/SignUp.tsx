@@ -95,8 +95,9 @@ const SignUp = () => {
     else if (formData.password !== formData.confirmPassword)
       newErrors.password = "Passwords don't match.";
 
-    const hasErrors = Object.values(newErrors).some((error) => error !== "");
-    return !hasErrors;
+    setErrors(newErrors);
+
+    return Object.values(newErrors).every((error) => error === "");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
