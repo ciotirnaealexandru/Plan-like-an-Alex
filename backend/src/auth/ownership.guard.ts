@@ -17,7 +17,7 @@ export class OwnershipGuard implements CanActivate {
     const user = request.user;
     const { id } = request.params;
 
-    // If user is an admin, grant access
+    // If user is an admin, allow access
     if (user.role === Role.ADMIN) {
       return true;
     }
