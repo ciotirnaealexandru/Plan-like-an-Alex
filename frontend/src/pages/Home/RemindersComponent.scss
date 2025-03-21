@@ -1,4 +1,9 @@
 /* Custom Scrollbar Styles */
+.add-custom-scrollbar {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+}
+
 .add-custom-scrollbar::-webkit-scrollbar {
   width: 6px;
 }
